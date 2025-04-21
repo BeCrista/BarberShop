@@ -57,7 +57,7 @@ namespace Barbearia.Controllers
             var slot = await _context.AvailableTimeSlots.FindAsync(SlotId);
             if (slot == null || slot.Ocupado)
             {
-                return NotFound("Hor·rio n„o disponÌvel.");
+                return NotFound("Hor√°rio n√£o dispon√≠vel.");
             }
 
             var agendamento = new Appointment
@@ -75,18 +75,18 @@ namespace Barbearia.Controllers
             var barbeiro = await _context.Barbers.FindAsync(BarberId);
             var servico = await _context.Services.FindAsync(ServiceId);
 
-            var subject = "ConfirmaÁ„o de Agendamento - Barbearia";
+            var subject = "Confirma√ß√£o de Agendamento - Barbearia Drummond";
             var message = $@"
-            <h2>Ol·, {ClienteNome}!</h2>
+            <h2>Ol√°, {ClienteNome}!</h2>
             <p>Seu agendamento foi confirmado com sucesso.</p>
             <p><strong>Data:</strong> {slot.DataHoraInicio:dd/MM/yyyy HH:mm}</p>
-            <p><strong>ServiÁo:</strong> {servico?.Nome}</p>
+            <p><strong>Servi√ßo:</strong> {servico?.Nome}</p>
             <p><strong>Barbeiro:</strong> {barbeiro?.Nome}</p>
             <br/>
-            <p>Qualquer d˙vida, estamos ‡ disposiÁ„o!</p>
-            <p><em>Equipe da Barbearia</em></p>";
+            <p>Qualquer d√∫vida, estamos √† disposi√ß√£o!</p>
+            <p><em>Barbearia Drummond</em></p>";
 
-            // Garantir codificaÁ„o correta para UTF-8
+            // Garantir codifica√ß√£o correta para UTF-8
             var mailMessage = new MimeMessage();
             mailMessage.Subject = subject;
             mailMessage.Body = new TextPart("html")
@@ -100,10 +100,10 @@ namespace Barbearia.Controllers
 
             // Cria evento no Google Calendar
             string titulo = $"Agendamento com {barbeiro?.Nome}";
-            string descricao = $"Cliente: {ClienteNome}\nServiÁo: {servico?.Nome}";
+            string descricao = $"Cliente: {ClienteNome}\nServi√ßo: {servico?.Nome}";
             DateTime dataInicio = slot.DataHoraInicio;
-            DateTime dataFim = dataInicio.AddMinutes(30); // pode ajustar com base no tempo do serviÁo
-            string calendarId = "9efa42649f2e3c7abdc852fe953e30605b6fab1c995d661933abeb936e9d0aea@group.calendar.google.com"; //ID do calend·rio que criei para a barbearia
+            DateTime dataFim = dataInicio.AddMinutes(30); // pode ajustar com base no tempo do servi√ßo
+            string calendarId = "9efa42649f2e3c7abdc852fe953e30605b6fab1c995d661933abeb936e9d0aea@group.calendar.google.com"; //ID do calend√°rio que criei para a barbearia
 
             await _calendarService.CreateEventAsync(dataInicio, dataFim, titulo, descricao, calendarId);
 
