@@ -21,7 +21,7 @@ public class EmailSender : IEmailSender
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress("Barbearia", _configuration["EmailSettings:From"]));
         emailMessage.To.Add(MailboxAddress.Parse(email));
-        emailMessage.Bcc.Add(MailboxAddress.Parse("bernardocrista64@gmail.com")); // <- adiciona você como cópia oculta
+        emailMessage.Bcc.Add(MailboxAddress.Parse("seuemail@exemplo.com")); // <- adiciona você como cópia oculta
         emailMessage.Subject = subject;
 
         var builder = new BodyBuilder
