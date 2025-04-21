@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Service>
+@{
+    var slotId = ViewBag.SlotId;
+    var barberId = ViewBag.BarberId;
+    ViewData["Title"] = "Escolha um dos serviços";
+}
+
+<section class="container py-5">
+    <h2 class="mb-4 text-center" style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; color: black;">Escolha um Serviço</h2>
+    <form asp-action="ConfirmarAgendamento" method="post" class="mx-auto shadow p-5 bg-light rounded-4" style="max-width: 600px;">
+        <input type="hidden" name="SlotId" value="@slotId" />
+        <input type="hidden" name="BarberId" value="@barberId" />
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nome</label>
+            <input type="text" name="ClienteNome" class="form-control rounded-pill" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" name="ClienteEmail" class="form-control rounded-pill" required />
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Serviço</label>
+            <select name="ServiceId" class="form-select rounded-pill">
+                @foreach (var s in Model)
+                {
+                    <option value="@s.Id">@s.Nome - @s.Preco.ToString("C")</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 rounded-pill text-uppercase fw-bold">
+            Confirmar Agendamento
+        </button>
+    </form>
+</section>
+
+<style>
+    .barber-card:hover {
+        transform: translateY(-6px);
+        transition: transform 0.3s ease;
+    }
+
+    .form-label {
+        font-family: 'Montserrat', sans-serif;
+        color: #333;
+    }
+
+    .form-control, .form-select {
+        font-family: 'Ek Mukta', sans-serif;
+        font-size: 1rem;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+</style>

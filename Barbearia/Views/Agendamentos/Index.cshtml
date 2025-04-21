@@ -1,0 +1,49 @@
+@model IEnumerable<Barbearia.Models.Appointment>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Agendamentos</h1>
+
+<p>
+    <a asp-action="EscolherBarbeiro">Vamos agendar?</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ClienteNome)</th>
+            <th>@Html.DisplayNameFor(model => model.ClienteEmail)</th>
+            <th>@Html.DisplayNameFor(model => model.DataHora)</th>
+            <th>@Html.DisplayNameFor(model => model.Barber)</th>
+            <th>@Html.DisplayNameFor(model => model.Service)</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Ações</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ClienteNome)</td>
+                <td>@Html.DisplayFor(modelItem => item.ClienteEmail)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataHora)</td>
+                <td>@Html.DisplayFor(modelItem => item.Barber.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Service.Nome)</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

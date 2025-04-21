@@ -1,0 +1,11 @@
+# Pastas e arquivos a ignorar no Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.dbmdl
+.env
+**/credentials.json

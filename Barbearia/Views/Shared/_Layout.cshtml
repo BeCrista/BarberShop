@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Barbearia</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="~/css/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Barbearia.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/a2d3b7d65c.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-success bg-gradient border-bottom shadow-sm py-3">
+            <div class="container-fluid">
+                <a class="navbar-brand text-xl font-bold text-gray-800" asp-area="" asp-controller="Home" asp-action="Index">
+                    ✂️ Barbearia Drummond
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                        aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
+                        </li>
+                        <li>
+                            <a href="/Home/Index/#SobreNos" class="nav-link text-dark">Sobre Nós</a>
+                        </li>
+                        <li>
+                            <a href="/Home/Index/#Destaques" class="nav-link text-dark">Destaques</a>
+                        </li>
+                        <li>
+                            <a href="/Home/Index/#Servicos" class="nav-link text-dark">Serviços</a>
+                        </li>
+                        <li>
+                            <a href="/Home/Index/#Equipa" class="nav-link text-dark">Profissionais</a>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Barbers" asp-action="Index">Barbeiros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Services" asp-action="Index">Serviços</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="TimeSlots" asp-action="Index">Horários</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto d-flex align-items-center gap-3">
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item">
+                                <span class="text-white fw-semibold">
+                                    <i class="fas fa-user-check me-1"></i> @User.Identity.Name
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="d-inline">
+                                    <button class="btn btn-outline-light btn-sm">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-area="Identity" asp-page="/Account/Login" class="nav-link text-white" title="Login">
+                                    <i class="bi bi-person-circle me-1"></i> Login
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Conteúdo principal que cresce para empurrar o footer -->
+    <div class="container mt-4 flex-grow-1">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer normal, sem fixed -->
+    <footer class="border-top text-center text-muted py-3 mt-5 small">
+        <div class="container">
+            &copy; 2025 - Barbearia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Política de Privacidade</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

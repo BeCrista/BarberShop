@@ -1,0 +1,19 @@
+﻿@model IEnumerable<AvailableTimeSlot>
+@{
+    var barberId = ViewBag.BarberId;
+    ViewData["Title"] = "Escolha um dos horários disponíveis";
+}
+
+
+<section class="container py-5">
+    <h2 class="mb-4 text-center" style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; color: black;">Escolha um Horário</h2>
+    <div class="list-group">
+        @foreach (var h in Model)
+        {
+            <a asp-action="EscolherServico" asp-route-slotId="@h.Id" asp-route-barberId="@barberId"
+               class="list-group-item list-group-item-action border border-dark rounded mb-2 py-3 hover:bg-gray-100 transition">
+                <span class="fw-semibold">@h.DataHoraInicio.ToString("dd/MM/yyyy HH:mm") - @h.DataHoraFim.ToString("HH:mm")</span>
+            </a>
+        }
+    </div>
+</section>
