@@ -19,7 +19,7 @@ public class EmailSender : IEmailSender
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
         var emailMessage = new MimeMessage();
-        emailMessage.From.Add(new MailboxAddress("Barbearia", _configuration["EmailSettings:From"]));
+        emailMessage.From.Add(new MailboxAddress("Barbearia Drummond", _configuration["EmailSettings:From"]));
         emailMessage.To.Add(MailboxAddress.Parse(email));
         emailMessage.Bcc.Add(MailboxAddress.Parse("seuemail@exemplo.com")); // <- adiciona você como cópia oculta
         emailMessage.Subject = subject;
