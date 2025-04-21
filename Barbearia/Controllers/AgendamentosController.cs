@@ -103,7 +103,7 @@ namespace Barbearia.Controllers
             string descricao = $"Cliente: {ClienteNome}\nServiço: {servico?.Nome}";
             DateTime dataInicio = slot.DataHoraInicio;
             DateTime dataFim = dataInicio.AddMinutes(30); // pode ajustar com base no tempo do serviço
-            string calendarId = "9efa42649f2e3c7abdc852fe953e30605b6fab1c995d661933abeb936e9d0aea@group.calendar.google.com"; //ID do calendário que criei para a barbearia
+            string calendarId = ""; //ID do calendário que precisa criar para a barbearia
 
             await _calendarService.CreateEventAsync(dataInicio, dataFim, titulo, descricao, calendarId);
 
